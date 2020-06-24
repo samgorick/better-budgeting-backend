@@ -10,11 +10,11 @@ SpendingCategory.create([{ name: 'Rent'}, {name: 'Eating/Drinking Out'}, {name: 
 
 Transaction.create(
   [
-    {date: "2020-06-23", merchant: "Amazon", user_id: 1, spending_category_id: 3, amount: 50.99, recurring: false},
-    {date: "2020-06-22", merchant: "Starbucks", user_id: 1, spending_category_id: 2, amount: 5.99, recurring: false},
-    {date: "2020-06-21", merchant: "Oakwood", user_id: 1, spending_category_id: 1, amount: 3450, recurring: false},
-    {date: "2020-06-23", merchant: "CVS", user_id: 1, spending_category_id: 3, amount: 15.99, recurring: false},
-    {date: "2020-06-23", merchant: "McDonalds", user_id: 1, spending_category_id: 2, amount: 24, recurring: false},
+    {date: "2020-06-23", merchant: "Amazon", user_id: 15, spending_category_id: 3, amount: 50.99, recurring: false},
+    {date: "2020-06-22", merchant: "Starbucks", user_id: 15, spending_category_id: 2, amount: 5.99, recurring: false},
+    {date: "2020-06-21", merchant: "Oakwood", user_id: 15, spending_category_id: 1, amount: 3450, recurring: false},
+    {date: "2020-06-23", merchant: "CVS", user_id: 15, spending_category_id: 3, amount: 15.99, recurring: false},
+    {date: "2020-06-23", merchant: "McDonalds", user_id: 15, spending_category_id: 2, amount: 24, recurring: false},
   ]
 )
 
