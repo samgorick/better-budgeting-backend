@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       render json: { error: 'Email address already exists. Try logging in instead'}
     else
       user = User.create!({email: params[:email], password: params[:password]})
-      render json: { id: user.id, email: user.email }
+      render json: { id: user.id, email: user.email, transactions: user.transactions }
     end
   end
 
