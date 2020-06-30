@@ -6,14 +6,14 @@ class UsersController < ApplicationController
       render json: { error: 'Email address already exists. Try logging in instead'}
     else
       user = User.create!({email: params[:email], password: params[:password]})
-      render json: user, include: [:transactions]
+      render json: user, include: [:transactions, :budgets, :savings]
     end
   end
 
   def login 
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-      render json: user, include: [:transactions, :budgets]
+      render json: user, include: [:transactions, :budgets, :savings]
     else
       render json: { error: 'Invalid username or password'}
     end
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def index
     users = User.all 
-    render json: users, include: [:transactions]
+    render json: users, include: [:transactions, :budgets, :savings]
   end
 
   private

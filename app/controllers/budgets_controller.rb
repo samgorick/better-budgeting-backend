@@ -2,13 +2,7 @@ class BudgetsController < ApplicationController
 
   def create
     params[:budget].each do |budgetCategory|
-      if budgetCategory[0] == 'eatingDrinkingOut'
-        spending_category = SpendingCategory.find(2)
-      elsif budgetCategory[0] == 'personalCare'
-        spending_category = SpendingCategory.find(8)
-      else
-        spending_category = SpendingCategory.find_by(name: budgetCategory[0])
-      end
+      spending_category = SpendingCategory.find_by(name: budgetCategory[0])
 
       Budget.create!(user_id: params[:user_id], spending_category_id: spending_category.id, amount: budgetCategory[1])
     end
@@ -19,6 +13,12 @@ class BudgetsController < ApplicationController
   def index
     budgets = Budget.all 
     render json: budgets
+  end
+
+  def update
+    budget = Budget.find(params[:id])
+    budget.update(amount: params[:amount])
+    render json: budget
   end
 
   # def update
