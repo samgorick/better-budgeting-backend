@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :users, :transactions, :budgets, :savings, :saving_values
     post '/signup', to: 'users#create'
     post '/login', to: 'users#login'
+    get '/login', to: 'users#show'
 end
