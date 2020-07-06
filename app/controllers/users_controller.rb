@@ -3,9 +3,10 @@ class UsersController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if user
-      render json: { error: 'Email address already exists. Try logging in instead'}
+      render json: { error: 'Email address already exists. Try logging in instead' }
     else
       user = User.create!({email: params[:email], password: params[:password]})
+
       render json: user, include: [:transactions, :budgets, :savings]
     end
   end
