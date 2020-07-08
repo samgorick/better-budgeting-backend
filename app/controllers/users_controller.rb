@@ -21,7 +21,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    p request.headers['Authorization'].split(' ').last
     token = request.headers['Authorization'].split(' ').last
     decoded_token = JWT.decode(token, 's3cret!', true, { algorithm: 'HS256' })
     id = decoded_token.first['user_id']
