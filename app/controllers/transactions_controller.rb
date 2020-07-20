@@ -1,8 +1,11 @@
 class TransactionsController < ApplicationController
 
   def create
-    spending_category = SpendingCategory.find_by(name: params[:category])
-    transaction = Transaction.create!(merchant: params[:merchant], user_id: params[:user_id], spending_category_id: spending_category.id, amount: params[:amount])
+    # Find spending category id, replace spending category name with ID
+    find_spending_category
+    all_data = (transaction_params.merge(spending_category_id: @spending_category.id))
+    all_data.delete(:category)
+    transaction = Transaction.create!(all_data)
     render json: transaction
   end
 
@@ -12,16 +15,30 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    transaction = Transaction.find(params[:id])
-    spending_category = SpendingCategory.find_by(name: params[:category])
-    transaction.update(merchant: params[:merchant], spending_category_id: spending_category.id, amount: params[:amount])
-    render json: transaction
+    find_transaction
+    find_spending_category
+    @transaction.update(merchant: transaction_params[:merchant], amount: transaction_params[:amount], spending_category_id: @spending_category.id)
+    render json: @transaction
   end
 
   def destroy
-    transaction = Transaction.find(params[:id])
-    transaction.destroy
+    find_transaction
+    @transaction.destroy
     render json: {}
+  end
+
+  private
+
+  def find_transaction
+    @transaction = Transaction.find(params[:id])
+  end
+
+  def find_spending_category
+    @spending_category = SpendingCategory.find_by(name: transaction_params[:category])
+  end
+
+  def transaction_params
+    params.require(:transaction).permit(:id, :category, :merchant, :amount, :user_id)
   end
   
 end

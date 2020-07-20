@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: user_params[:email])
     if user
       render json: { error: 'Email address already exists. Try logging in instead' }
     else
-      user = User.create!({email: params[:email], password: params[:password]})
+      user = User.create!(user_params)
 
       render json: user, include: [:transactions, :budgets, :savings]
     end
   end
 
   def login 
-    user = User.find_by(email: params[:email])
-    if user && user.authenticate(params[:password])
+    user = User.find_by(email: user_params[:email])
+    if user && user.authenticate(user_params[:password])
       render json: user, include: [:transactions, :budgets, :savings]
     else
       render json: { error: 'Invalid username or password'}
